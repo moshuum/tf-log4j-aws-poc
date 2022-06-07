@@ -41,11 +41,6 @@ resource "aws_spot_instance_request" "app_server" {
     destination = "/tmp/Dockerfile"
   }
 
-  provisioner "file" {
-    source      = "../jdk-8u111-linux-x64.tar.gz"
-    destination = "/tmp/jdk-8u111-linux-x64.tar.gz"
-  }
-
   user_data = templatefile("linux.sh.tftpl", { name = var.user_name })
 
 } //aws_instance
@@ -92,17 +87,6 @@ resource "aws_security_group" "main" {
       security_groups  = []
       self             = false
       to_port          = 8080
-    },
-    {
-      cidr_blocks      = ["0.0.0.0/0", ]
-      description      = "python in"
-      from_port        = 8081
-      ipv6_cidr_blocks = []
-      prefix_list_ids  = []
-      protocol         = "tcp"
-      security_groups  = []
-      self             = false
-      to_port          = 8081
     }
   ]
 } // security_group
