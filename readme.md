@@ -51,10 +51,10 @@ Ensure `http:<aws host url>:8080` is accessible
 
 ## Prepare Remote / Localhost client (attacker):
 Set execute permission  (in same workdir= single-instance)
-`chmod +x runscript.sh`    
+`chmod +x exploit-script-remote.sh`    
 
 Run script with 2 supplied variable   
-`./runscript.sh <1: desktop | cloud> <2: remote ip>`
+`./exploit-script-remote.sh <1: desktop | cloud> <2: remote ip>`
 
 Note the payload is displayed end of script
 
@@ -62,7 +62,8 @@ Note the payload is displayed end of script
 Visit `http:<aws host url>:8080`
 
 Copy the payload into the username field then submit forms  
-![](https://github.com/moshuum/tf-log4j-aws-poc/blob/main/images/Screenshot%202022-06-07%20034332.png?raw=true | width=80)
+
+![exploit](https://github.com/moshuum/tf-log4j-aws-poc/blob/main/images/Screenshot%202022-06-07%20034332.png?raw=true)
 
 
 ## References
