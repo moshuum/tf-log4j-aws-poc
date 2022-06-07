@@ -36,11 +36,6 @@ resource "aws_spot_instance_request" "app_server" {
     timeout     = "2m"
   }
 
-  provisioner "file" {
-    source      = "../images/Dockerfile"
-    destination = "/tmp/Dockerfile"
-  }
-
   user_data = templatefile("linux.sh.tftpl", { name = var.user_name })
 
 } //aws_instance
