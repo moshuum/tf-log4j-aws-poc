@@ -16,9 +16,9 @@ Personally, I tested using Windows + Powershell, cloud machine is Ubuntu 18 LTS.
   
 # Pre-requisite
 
-Installed AWS_CLI  
-Installed Terraform CLI   
-Have Access key ready
+1. Installed AWS_CLI  
+2. Installed Terraform CLI   
+3. Have Access key ready
 
 ## RSA KEY
 
@@ -43,9 +43,9 @@ Linux:
 
 # Usage
 ## Setup EC2 in AWS platform
-`cd single-instance` 
-`terraform init` 
-`terraform apply`
+ `cd single-instance`  
+ `terraform init`    
+ `terraform apply`   
 
 Ensure `http:<aws host url>:8080` is accessible
 
@@ -62,8 +62,7 @@ Note the payload is displayed end of script
 Visit `http:<aws host url>:8080`
 
 Copy the payload into the username field then submit forms  
-[img src="./images/Screenshot 2022-06-07 034332.png"]
-
+[[/images/Screenshot 2022-06-07 034332.png|exploit here]]
 
 
 ## References
