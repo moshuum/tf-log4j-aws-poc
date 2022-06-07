@@ -62,7 +62,7 @@ Note the payload is displayed end of script
 Visit `http:<aws host url>:8080`
 
 Copy the payload into the username field then submit forms  
-[[/images/Screenshot 2022-06-07 034332.png|exploit here]]
+![exploit here](https://github.com/moshuum/tf-log4j-aws-poc/blob/main/images/Screenshot%202022-06-07%20034332.png?raw=true | width=80%)
 
 
 ## References
