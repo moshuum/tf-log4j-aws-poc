@@ -3,7 +3,7 @@ terraform-aws
 terraform-aws.pub
 tf-aws.pem
 *.backup
-*.tfstate
+*.tfstate*
 *.hcl
 .terraform/*
 *.exe
