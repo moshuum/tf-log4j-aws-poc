@@ -9,6 +9,10 @@ https://github.com/kozmer/log4j-shell-poc
 
 This medium blog explain how her attempt walkthrough : 
 https://chennylmf.medium.com/apache-log4j-shell-poc-exploits-5953c42fa873  
+
+# My testing  
+
+Personally, I tested using Windows + Powershell, cloud machine is Ubuntu 18 LTS. (Exploitation with kali or any linux)
   
 # Pre-requisite
 
@@ -38,18 +42,19 @@ Linux:
 `export AWS_DEFAULT_REGION="<region>"`
 
 # Usage
-## Setup EC2 in AWS platform  
+## Setup EC2 in AWS platform
+`cd single-instance` 
 `terraform init` 
 `terraform apply`
 
 Ensure `http:<aws host url>:8080` is accessible
 
 ## Prepare Remote / Localhost client (attacker):
-Set execute permission  
-`chmod +x runfile.sh`    
+Set execute permission  (in same workdir= single-instance)
+`chmod +x runscript.sh`    
 
 Run script with 2 supplied variable   
-`./runfile.sh <1: desktop | cloud> <2: remote ip>`
+`./runscript.sh <1: desktop | cloud> <2: remote ip>`
 
 Note the payload is displayed end of script
 

@@ -2,3 +2,7 @@
 terraform-aws
 terraform-aws.pub
 tf-aws.pem
+*.backup
+*.tfstate
+*.hcl
+.terraform/*

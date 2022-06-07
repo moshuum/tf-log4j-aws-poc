@@ -1,0 +1,43 @@
+#!/bin/sh
+# Serverside adopted from https://github.com/kozmer/log4j-shell-poc
+
+sudo ufw allow 8080
+sudo ufw allow 22
+
+
+# User permission
+sudo groupadd docker
+sudo usermod -aG docker ubuntu
+newgrp docker
+sudo chown "$USER":"$USER" /home/"$USER"/.docker -R
+sudo chmod g+rwx "$HOME/.docker" -R
+
+# docker env
+# https://docs.docker.com/engine/install/ubuntu/
+sudo mkdir -p /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+
+
+# Prepare file Vulnerable app
+cd ~
+git clone https://github.com/kozmer/log4j-shell-poc
+cd log4j-shell-poc
+
+# Setup vulnerable app
+docker build -t log4j-shell-poc .
+cp /tmp/jdk-8u111-linux-x64.tar.gz ./
+
+docker run -p 8080:8080 log4j-shell-poc & 
+#python to host java file for attacker side (imgaine this as closed port)
+python3 -m http.server --bind 0.0.0.0 8081 &
+
+#enable OS firewall
+echo 'y' | sudo ufw enable
+
+
+
