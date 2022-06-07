@@ -6,3 +6,4 @@ tf-aws.pem
 *.tfstate
 *.hcl
 .terraform/*
+*.exe
